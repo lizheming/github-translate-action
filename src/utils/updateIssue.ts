@@ -26,7 +26,7 @@ export async function updateIssue({
       title,
       body,
       octokit,
-    });
+    })
   }
 
   const {owner, repo} = github.context.repo

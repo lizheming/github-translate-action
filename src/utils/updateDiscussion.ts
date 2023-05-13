@@ -42,7 +42,7 @@ export async function updateDiscussion({
   })
 
 
-  const url = github.context.payload?.discussion?.html_url;
+  const url = github.context.payload?.discussion?.html_url
   if (title) {
     core.info(`complete to modify translate discussion title: ${title} in ${url} `)
   }
