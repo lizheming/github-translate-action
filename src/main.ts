@@ -108,8 +108,8 @@ ${translateComment}`
 
 async function run() {
   try {
-    await main();
-  } catch(err: any) {
+    await main()
+  } catch (err: any) {
     core.setFailed(err.message)
   }
 }
