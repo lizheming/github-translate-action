@@ -31,7 +31,7 @@ async function run(): Promise<void> {
   const originTitle = title?.split(TRANSLATE_TITLE_DIVING)?.[0]
   const originComment = body?.split(TRANSLATE_DIVIDING_LINE)?.[0]
 
-  const translateOrigin = translateText.stringify(originTitle, originComment)
+  const translateOrigin = translateText.stringify(originComment, originTitle)
   if (!translateOrigin) {
     return
   }
