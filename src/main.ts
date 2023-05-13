@@ -9,7 +9,7 @@ const TRANSLATE_DIVIDING_LINE = `<!--This is a translation content dividing line
 const DEFAULT_BOT_MESSAGE = `Bot detected the issue body's language is not English, translate it automatically. 👯👭🏻🧑‍🤝‍🧑👫🧑🏿‍🤝‍🧑🏻👩🏾‍🤝‍👨🏿👬🏿`
 const DEFAULT_BOT_TOKEN = process.env.GITHUB_TOKEN
 
-async function run(): Promise<void> {
+async function main(): Promise<void> {
   core.info(JSON.stringify(github.context))
 
   const isModifyTitle = core.getInput('IS_MODIFY_TITLE')
@@ -22,7 +22,12 @@ async function run(): Promise<void> {
     return core.info(`GITHUB_TOKEN is requried!`)
   }
 
-  const {match, title, body, update} = getModel()
+  const model = getModel()
+  if (!model) {
+    return
+  }
+
+  const {match, title, body, update} = model
   if (!match) {
     return
   }
@@ -101,6 +106,12 @@ ${translateComment}`
   core.setOutput('complete time', new Date().toTimeString())
 }
 
-run().catch(error => {
-  core.setFailed(error.message)
-})
+async function run() {
+  try {
+    await main();
+  } catch(err: any) {
+    core.setFailed(err.message)
+  }
+}
+
+run()
