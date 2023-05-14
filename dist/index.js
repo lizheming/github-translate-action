@@ -613,7 +613,7 @@ exports["default"] = {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { context: { repo: { owner, repo }, payload: { pull_request, comment } } } = github;
-            if (!(pull_request === null || pull_request === void 0 ? void 0 : pull_request.number) || !comment || (comment === null || comment === void 0 ? void 0 : comment.id) || !body || body === 'null') {
+            if (!(pull_request === null || pull_request === void 0 ? void 0 : pull_request.number) || !comment || !(comment === null || comment === void 0 ? void 0 : comment.id) || !body || body === 'null') {
                 return;
             }
             yield octokit.pulls.updateReviewComment({
