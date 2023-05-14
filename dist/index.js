@@ -320,12 +320,14 @@ const discussion_1 = __importDefault(__nccwpck_require__(9005));
 const issue_comment_1 = __importDefault(__nccwpck_require__(4683));
 const discussion_comment_1 = __importDefault(__nccwpck_require__(9832));
 const pull_request_1 = __importDefault(__nccwpck_require__(5999));
+const pull_request_2 = __importDefault(__nccwpck_require__(5999));
 exports.models = {
     issue: issue_1.default,
     issue_comment: issue_comment_1.default,
     discussion: discussion_1.default,
     discussion_comment: discussion_comment_1.default,
     pull_request: pull_request_1.default,
+    pull_request_target: pull_request_2.default,
 };
 function getModel() {
     return exports.models[github.context.eventName];
