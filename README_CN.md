@@ -32,6 +32,7 @@ jobs:
     permissions:
       issues: write
       discussions: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -47,7 +48,7 @@ jobs:
 
 本项目 Fork 自[dromara/issues-translate-action](https://github.com/dromara/issues-translate-action)，非常感谢原作者的工作。由于对原项目的改造比较巨大，包括但不限于：
 
-- 增加 GitHub discussion 的翻译支持
+- 增加 GitHub discussion 和 pull request 的翻译支持
 - 增加追加翻译内容无侵扰翻译动作
 - 使用 GitHub Action Token 替换自定义 Token 流程
 - 重构项目拆分代码

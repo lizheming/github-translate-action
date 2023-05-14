@@ -18,36 +18,41 @@ See [action.yml](./action.yml) for more details.
 ````yml
 name: 'translator'
 on:
-   issues:
-     types: [opened, edited]
-   issue_comment:
-     types: [created, edited]
-   discussion:
-     types: [created, edited]
-   discussion_comment:
-     types: [created, edited]
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+  discussion:
+    types: [created, edited]
+  discussion_comment:
+    types: [created, edited]
+  pull_request_target:
+    types: [opened, edited]
+  pull_request_review_comment:
+    types: [created, edited]
 
 jobs:
-   translate:
-     permissions:
-       issues: write
-       discussions: write
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v3
-       - uses: lizheming/github-translate-action
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-           IS_MODIFY_TITLE: true
-           APPEND_TRANSLATION: true
+  translate:
+    permissions:
+      issues: write
+      discussions: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: lizheming/github-translate-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          IS_MODIFY_TITLE: true
+          APPEND_TRANSLATION: true
 ````
 
 ## Thanks
 
 This project is forked from [dromara/issues-translate-action](https://github.com/dromara/issues-translate-action), thanks to the original author for his work. Due to the large modification of the upstream project, such as:
 
-- Add translation support for GitHub discussion
+- Add translation support for GitHub discussion and pull request
 - Added non-intrusive translation actions for additional translation content
 - Replace custom GitHub Token process with GitHub Action Token
 - Refactored project
