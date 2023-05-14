@@ -1,5 +1,5 @@
+import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { updateIssue } from '../utils'
 
 export default {
   get match() {
@@ -13,12 +13,28 @@ export default {
     return github.context.payload.comment?.body
   },
   async update(octokit: ReturnType<typeof github.getOctokit>, body?: string | null): Promise<void> {
-    const { context: { payload: { pull_request, comment } } } = github
-    return updateIssue({
-      issue_number: pull_request?.number,
-      comment_id: comment?.id,
-      body: body && body !== 'null' ? body : undefined,
-      octokit
+    const { 
+      context: { 
+        repo: { owner, repo }, 
+        payload: { pull_request, comment } 
+      } 
+    } = github
+    
+    if (!pull_request?.number || !comment || comment?.id || !body || body === 'null') {
+      return
+    }
+
+    await octokit.pulls.updateReviewComment({
+      owner,
+      repo,
+      pull_number: pull_request?.number,
+      comment_id: comment.id,
+      body,
     })
+
+    const url = github.context.payload.pull_request?.html_url
+    if (body) {
+      core.info(`complete to modify translate pull_request body: ${body} in ${url} `)
+    }
   }
 }
