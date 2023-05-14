@@ -619,7 +619,6 @@ exports["default"] = {
             yield octokit.pulls.updateReviewComment({
                 owner,
                 repo,
-                pull_number: pull_request === null || pull_request === void 0 ? void 0 : pull_request.number,
                 comment_id: comment.id,
                 body,
             });
