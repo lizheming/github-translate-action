@@ -20,7 +20,7 @@ export default {
       } 
     } = github
     
-    if (!pull_request?.number || !comment || comment?.id || !body || body === 'null') {
+    if (!pull_request?.number || !comment || !comment?.id || !body || body === 'null') {
       return
     }
 
