@@ -10,12 +10,10 @@ on:
     types: [created, edited]
   pull_request_target:
     types: [opened, edited]
-  # pull_request_comment:
-
-  # pull_request_review:
-  #   types: [submitted, edited]
-  # pull_request_review_comment:
-  #   types: [created, edited]
+  pull_request_review:
+    types: [submitted, edited]
+  pull_request_review_comment:
+    types: [created, edited]
 
 
 jobs:
