@@ -595,8 +595,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-const utils_1 = __nccwpck_require__(1606);
 exports["default"] = {
     get match() {
         const { context: { payload: { pull_request } } } = github;
@@ -610,14 +610,23 @@ exports["default"] = {
         return (_a = github.context.payload.comment) === null || _a === void 0 ? void 0 : _a.body;
     },
     update(octokit, body) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { context: { payload: { pull_request, comment } } } = github;
-            return (0, utils_1.updateIssue)({
-                issue_number: pull_request === null || pull_request === void 0 ? void 0 : pull_request.number,
-                comment_id: comment === null || comment === void 0 ? void 0 : comment.id,
-                body: body && body !== 'null' ? body : undefined,
-                octokit
+            const { context: { repo: { owner, repo }, payload: { pull_request, comment } } } = github;
+            if (!(pull_request === null || pull_request === void 0 ? void 0 : pull_request.number) || !comment || (comment === null || comment === void 0 ? void 0 : comment.id) || !body || body === 'null') {
+                return;
+            }
+            yield octokit.pulls.updateReviewComment({
+                owner,
+                repo,
+                pull_number: pull_request === null || pull_request === void 0 ? void 0 : pull_request.number,
+                comment_id: comment.id,
+                body,
             });
+            const url = (_a = github.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.html_url;
+            if (body) {
+                core.info(`complete to modify translate pull_request body: ${body} in ${url} `);
+            }
         });
     }
 };
