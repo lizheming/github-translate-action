@@ -5,6 +5,7 @@ import discussion from './discussion'
 import issue_comment from './issue_comment'
 import discussion_comment from './discussion_comment'
 import pull_request from './pull_request'
+import pull_request_target from './pull_request'
 
 export const models = {
   issue,
@@ -12,6 +13,7 @@ export const models = {
   discussion,
   discussion_comment,
   pull_request,
+  pull_request_target,
 }
 
 export type TRANSLATE_EVENT_NAME = keyof typeof models
