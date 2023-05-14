@@ -12,7 +12,7 @@ export default {
   get body() {
     return github.context.payload.pull_request?.body
   },
-  async update(octokit: ReturnType<typeof github.getOctokit>, body?: string, title?: string): Promise<void> {
+  async update(octokit: ReturnType<typeof github.getOctokit>, body?: string | null, title?: string | null): Promise<void> {
     const { 
       context: { 
         repo: { owner, repo }, 
@@ -28,8 +28,8 @@ export default {
       owner,
       repo,
       pull_number: pull_request?.number,
-      title,
-      body
+      title: title && title !== 'null' ? title : undefined,
+      body: body && body !== 'null' ? body : undefined,
     })
 
     const url = github.context.payload.pull_request?.html_url

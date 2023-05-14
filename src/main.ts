@@ -65,7 +65,7 @@ ${TRANSLATE_DIVIDING_LINE}
 ---
 ${translateComment}
 `
-    await update(octokit, body || '', title || '')
+    await update(octokit, body || undefined, title || undefined)
   } else {
     const needCommitComment =
       translateComment && translateComment !== originComment

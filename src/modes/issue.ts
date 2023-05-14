@@ -12,12 +12,12 @@ export default {
   get body() {
     return github.context.payload.issue?.body
   },
-  async update(octokit: ReturnType<typeof github.getOctokit>, body?: string, title?: string): Promise<void> {
+  async update(octokit: ReturnType<typeof github.getOctokit>, body?: string | null, title?: string | null): Promise<void> {
     const { context: { payload: { issue } } } = github
     return updateIssue({
       issue_number: issue?.number,
-      title,
-      body,
+      title: title && title !== 'null' ? title : undefined,
+      body: body && body !== 'null' ? body : undefined,
       octokit
     })
   }

@@ -8,7 +8,7 @@ on:
     types: [created, edited]
   discussion_comment:
     types: [created, edited]
-  pull_request:
+  pull_request_target:
     types: [opened, edited]
   # pull_request_comment:
 
