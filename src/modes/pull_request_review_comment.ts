@@ -27,7 +27,6 @@ export default {
     await octokit.pulls.updateReviewComment({
       owner,
       repo,
-      pull_number: pull_request?.number,
       comment_id: comment.id,
       body,
     })
