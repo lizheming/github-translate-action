@@ -97,7 +97,7 @@ ${TRANSLATE_DIVIDING_LINE}
 ---
 ${translateComment}
 `;
-            yield update(octokit, body || '', title || '');
+            yield update(octokit, body || undefined, title || undefined);
         }
         else {
             const needCommitComment = translateComment && translateComment !== originComment;
@@ -201,8 +201,8 @@ exports["default"] = {
             const { context: { payload: { discussion } } } = github;
             return (0, utils_1.updateIssue)({
                 discussion_number: discussion.node_id,
-                title,
-                body,
+                title: title && title !== 'null' ? title : undefined,
+                body: body && body !== 'null' ? body : undefined,
                 octokit
             });
         });
@@ -270,8 +270,8 @@ exports["default"] = {
             return (0, utils_1.updateIssue)({
                 discussion_number: discussion.node_id,
                 comment_id: comment === null || comment === void 0 ? void 0 : comment.node_id,
-                title,
-                body,
+                title: title && title !== 'null' ? title : undefined,
+                body: body && body !== 'null' ? body : undefined,
                 octokit
             });
         });
@@ -393,8 +393,8 @@ exports["default"] = {
             const { context: { payload: { issue } } } = github;
             return (0, utils_1.updateIssue)({
                 issue_number: issue === null || issue === void 0 ? void 0 : issue.number,
-                title,
-                body,
+                title: title && title !== 'null' ? title : undefined,
+                body: body && body !== 'null' ? body : undefined,
                 octokit
             });
         });
@@ -462,7 +462,7 @@ exports["default"] = {
             return (0, utils_1.updateIssue)({
                 issue_number: issue === null || issue === void 0 ? void 0 : issue.number,
                 comment_id: comment === null || comment === void 0 ? void 0 : comment.id,
-                body,
+                body: body && body !== 'null' ? body : undefined,
                 octokit
             });
         });
@@ -536,8 +536,8 @@ exports["default"] = {
                 owner,
                 repo,
                 pull_number: pull_request === null || pull_request === void 0 ? void 0 : pull_request.number,
-                title,
-                body
+                title: title && title !== 'null' ? title : undefined,
+                body: body && body !== 'null' ? body : undefined,
             });
             const url = (_a = github.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.html_url;
             if (title) {
