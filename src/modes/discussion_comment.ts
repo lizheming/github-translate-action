@@ -10,7 +10,7 @@ export default {
     return undefined
   },
   get body() {
-    return github.context.payload.discussion?.body
+    return github.context.payload.comment?.body
   },
   async update(octokit: ReturnType<typeof github.getOctokit>, body?: string | null, title?: string | null) {
     const { context: { payload: { discussion, comment } } } = github
