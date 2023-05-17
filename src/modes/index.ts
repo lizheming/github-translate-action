@@ -1,6 +1,6 @@
 import * as github from '@actions/github'
 
-import issue from './issue'
+import issues from './issues'
 import discussion from './discussion'
 import issue_comment from './issue_comment'
 import discussion_comment from './discussion_comment'
@@ -10,7 +10,7 @@ import pull_request_review_comment from './pull_request_review_comment'
 
 
 export const models = {
-  issue,
+  issues,
   issue_comment,
   
   discussion,
