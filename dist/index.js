@@ -262,7 +262,7 @@ exports["default"] = {
     },
     get body() {
         var _a;
-        return (_a = github.context.payload.discussion) === null || _a === void 0 ? void 0 : _a.body;
+        return (_a = github.context.payload.comment) === null || _a === void 0 ? void 0 : _a.body;
     },
     update(octokit, body, title) {
         return __awaiter(this, void 0, void 0, function* () {
