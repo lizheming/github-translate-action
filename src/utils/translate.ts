@@ -20,7 +20,8 @@ export const translateText = {
       return [ undefined, undefined ]
     }
 
-    const translateBody: string[] = text.split(MAGIC_JOIN_STRING)
+    // fix translate "@@====" to "@@== =="
+    const translateBody: string[] = text.split(/@@==\s?==/)
     return [ translateBody?.[0]?.trim(), translateBody[1].trim() ]
   },
   stringify(body?: string, title?: string) {
