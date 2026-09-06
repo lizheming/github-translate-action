@@ -9,6 +9,35 @@ const TRANSLATE_DIVIDING_LINE = `<!--This is a translation content dividing line
 const DEFAULT_BOT_MESSAGE = `Bot detected the issue body's language is not English, translate it automatically. 👯👭🏻🧑‍🤝‍🧑👫🧑🏿‍🤝‍🧑🏻👩🏾‍🤝‍👨🏿👬🏿`
 const DEFAULT_BOT_TOKEN = process.env.GITHUB_TOKEN
 
+interface HttpError extends Error {
+  statusCode?: number
+  response?: {
+    status?: number
+    statusCode?: number
+  }
+  cause?: {
+    response?: {
+      status?: number
+      statusCode?: number
+    }
+  }
+}
+
+function formatError(err: unknown): string {
+  if (!(err instanceof Error)) {
+    return String(err)
+  }
+
+  const httpError = err as HttpError
+  const status =
+    httpError.statusCode ||
+    httpError.response?.status ||
+    httpError.response?.statusCode ||
+    httpError.cause?.response?.status ||
+    httpError.cause?.response?.statusCode
+  return `${err.name}: ${err.message}${status ? ` (HTTP ${status})` : ''}`
+}
+
 async function main(): Promise<void> {
   core.info(JSON.stringify(github.context))
 
@@ -106,11 +135,13 @@ ${translateComment}`
   core.setOutput('complete time', new Date().toTimeString())
 }
 
-async function run() {
+async function run(): Promise<void> {
   try {
     await main()
-  } catch (err: any) {
-    core.setFailed(err.message)
+  } catch (err: unknown) {
+    const message = formatError(err)
+    core.error(message)
+    core.setFailed(message)
   }
 }
 

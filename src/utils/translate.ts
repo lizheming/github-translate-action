@@ -1,27 +1,25 @@
 import * as core from '@actions/core'
-import GoogleTranslate from '@tomsun28/google-translate-api'
-import { isEnglish } from './isEnglish'
+import GoogleTranslate from 'google-translate-api-x'
+import {isEnglish} from './isEnglish'
 
-export async function translate(text: string): Promise<string | undefined> {
-  try {
-    const resp = await GoogleTranslate(text, {to: 'en'})
-    return resp.text !== text ? resp.text : ''
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    core.error(err)
-    core.setFailed(err.message)
-  }
+export async function translate(text: string): Promise<string> {
+  const resp = await GoogleTranslate(text, {
+    to: 'en',
+    forceBatch: true,
+    rejectOnPartialFail: true
+  })
+  return resp.text !== text ? resp.text : ''
 }
 
 const MAGIC_JOIN_STRING = '@@===='
 export const translateText = {
   parse(text?: string) {
     if (!text) {
-      return [ undefined, undefined ]
+      return [undefined, undefined]
     }
 
     const translateBody: string[] = text.split(MAGIC_JOIN_STRING)
-    return [ translateBody?.[0]?.trim(), translateBody[1].trim() ]
+    return [translateBody?.[0]?.trim(), translateBody[1].trim()]
   },
   stringify(body?: string, title?: string) {
     let needCommitComment = body && body !== 'null' && !isEnglish(body)
@@ -40,6 +38,6 @@ export const translateText = {
       return translateOrigin
     }
 
-    return [ body || 'null', title ].join(MAGIC_JOIN_STRING)
+    return [body || 'null', title].join(MAGIC_JOIN_STRING)
   }
 }

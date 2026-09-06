@@ -13,6 +13,9 @@
     "test": "jest",
     "all": "npm run build && npm run format && npm run package"
   },
+  "jest": {
+    "preset": "ts-jest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lizheming/github-translate-action.git"
@@ -31,12 +34,13 @@
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "@octokit/webhooks": "7.15.1",
-    "@tomsun28/google-translate-api": "1.1.2",
-    "franc-min": "5.0.0"
+    "franc-min": "5.0.0",
+    "google-translate-api-x": "10.7.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
     "@types/node": "^14.10.0",
+    "@typescript-eslint/eslint-plugin": "3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "@vercel/ncc": "^0.36.1",
     "eslint": "^7.8.1",
