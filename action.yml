@@ -5,12 +5,12 @@ branding:
   color: 'purple'
 author: 'lizheming'
 inputs:
-  IS_MODIFY_TITLE: 
+  IS_MODIFY_TITLE:
     description: 'Is need modify issue title, true or false, default false.'
   APPEND_TRANSLATION:
     description: 'append translation content into issue instead of create new translation issue.'
   CUSTOM_BOT_NOTE:
     description: 'Custom bot note message.'
 runs:
-  using: 'node16'
+  using: 'node24'
   main: 'dist/index.js'
